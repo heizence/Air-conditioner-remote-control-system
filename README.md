@@ -1,98 +1,59 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# ❄️ 에어컨 리모컨 시스템 개발(백엔드)
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+## 1. 프로젝트 개요
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+이 프로젝트는 NestJS와 Docker를 기반으로 한 에어컨 리모컨 시스템의 백엔드 서버입니다. 사용자는 API를 통해 에어컨 제어 명령을 등록할 수 있으며, 실제 디바이스(시뮬레이터)는 주기적으로 서버에 새로운 명령을 요청(Polling)하여 작업을 수행합니다.
 
-## Description
+이 과제를 통해 비동기 처리, 상태 관리, 배치 작업(Scheduler) 등 백엔드 서버의 핵심적인 기능들을 구현하고 테스트하는 것을 목표로 합니다.
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## 2. 주요 기능
 
-## Project setup
+### 👨‍💻 사용자 API (`/commands`)
+- **명령 등록**: `POST /commands`를 통해 전원, 희망 온도, 모드, 풍속 등 다양한 에어컨 제어 명령을 등록합니다.
+- **유효성 검증**: 요청된 명령 값의 유효성을 검증합니다 (예: 온도는 16~30도).
+- **중복 방지**: 동일한 내용의 명령이 처리 대기 중일 경우, 중복 등록을 방지합니다.
 
+### 🤖 디바이스 API (`/devices`)
+- **명령 폴링**: `GET /devices/{id}/commands`를 통해 디바이스가 처리해야 할 `pending` 상태의 명령을 가져갑니다.
+- **상태 업데이트**: 폴링 시, 해당 디바이스의 상태를 `online`으로 갱신하고 마지막 통신 시간(`lastPingAt`)을 기록합니다.
+
+### 🕒 스케줄링 (배치 작업)
+- **명령 만료 처리**: 등록 후 2분 이상 폴링되지 않은 명령은 `expired` 상태로 자동 변경됩니다.
+- **디바이스 상태 점검**: 1분마다 모든 디바이스의 `lastPingAt`을 확인하여, 5분 이상 통신이 없는 디바이스는 `offline` 상태로 자동 변경됩니다.
+
+## 3. 기술 스택
+
+- **Framework**: NestJS, TypeScript
+- **Database**: `node-json-db` (파일 기반 JSON 데이터베이스)
+- **API Documentation**: Swagger (`@nestjs/swagger`)
+- **Containerization**: Docker, Docker Compose
+- **Scheduler**: `@nestjs/schedule`
+
+## 4. 시작하기
+
+### 사전 요구사항
+- [Docker Desktop](https://www.docker.com/products/docker-desktop/)이 설치되어 있어야 합니다.
+
+### 설치
 ```bash
-$ npm install
+# 1. 이 저장소를 로컬 컴퓨터에 복제(clone)합니다.
+git clone <your-repository-url>
+
+# 2. 프로젝트 폴더로 이동합니다.
+cd <project-directory>
 ```
 
-## Compile and run the project
+## 5. Docker 실행
+Docker 이미지를 빌드하고 컨테이너를 백그라운드에서 실행합니다.
 
+-d 옵션은 터미널을 차지하지 않고 백그라운드에서 실행하도록 합니다.
 ```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+docker-compose up --build -d
 ```
 
-## Run tests
+## 6. 서버 확인
+API 문서 (Swagger UI): http://localhost:3000/api
 
-```bash
-# unit tests
-$ npm run test
+위 주소로 접속하여 API를 테스트할 수 있습니다.
 
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
-```
-
-## Deployment
-
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
-
-```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
-```
-
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
-
-## Resources
-
-Check out a few resources that may come in handy when working with NestJS:
-
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+데이터는 프로젝트 루트에 생성되는 myData.json 파일에 저장됩니다.
