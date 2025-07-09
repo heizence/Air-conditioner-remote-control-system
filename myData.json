@@ -1,0 +1,63 @@
+{
+    "devices": [
+        {
+            "id": "device-001",
+            "status": "offline",
+            "lastPingAt": "2025-07-09T10:31:11.516Z",
+            "currentStat": {}
+        },
+        {
+            "id": "device-004",
+            "status": "offline",
+            "lastPingAt": "2025-07-09T10:43:17.046Z",
+            "currentStat": {}
+        }
+    ],
+    "commands": [
+        {
+            "id": "4db01384-e58d-4b04-9c4a-2943eee3115e",
+            "deviceId": "device-001",
+            "type": "power",
+            "value": "on",
+            "status": "in-progress",
+            "retryCount": 0,
+            "createdAt": "2025-07-09T10:30:39.744Z"
+        },
+        {
+            "id": "32004d65-95a0-4e6a-987c-935893b65fca",
+            "deviceId": "device-002",
+            "type": "mode",
+            "value": "cool",
+            "status": "expired",
+            "retryCount": 0,
+            "createdAt": "2025-07-09T10:33:02.530Z"
+        },
+        {
+            "id": "64449d38-131c-447a-a657-21ab42d6f5c8",
+            "deviceId": "device-003",
+            "type": "fanSpeed",
+            "value": "high",
+            "status": "expired",
+            "retryCount": 0,
+            "createdAt": "2025-07-09T10:33:39.112Z"
+        },
+        {
+            "id": "520971e3-0456-4360-bf38-0073c5024017",
+            "deviceId": "device-004",
+            "type": "power",
+            "value": "on",
+            "status": "in-progress",
+            "retryCount": 0,
+            "createdAt": "2025-07-09T10:42:09.571Z"
+        },
+        {
+            "id": "0b71f1a4-2c00-449d-805a-2e6e4520378b",
+            "deviceId": "device-004",
+            "type": "power",
+            "value": "off",
+            "status": "in-progress",
+            "retryCount": 0,
+            "createdAt": "2025-07-09T10:43:07.714Z"
+        }
+    ]
+}
