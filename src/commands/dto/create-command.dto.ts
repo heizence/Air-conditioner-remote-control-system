@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsString, IsIn, IsNotEmpty } from 'class-validator';
-import { CommandType } from '../command.enum';
+import { CommandType } from '../command.enums';
 
 export class CreateCommandDto {
   @ApiProperty({

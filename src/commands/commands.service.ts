@@ -2,9 +2,9 @@ import { Injectable, BadRequestException } from '@nestjs/common';
 import { DatabaseService } from '../database/database.service';
 import { CreateCommandDto } from './dto/create-command.dto';
 import { v4 as uuidv4 } from 'uuid';
-import { Command } from './command.interface';
-import { CommandType, PowerValue } from './command.enum';
-import { Status } from 'src/common/common.enums';
+import { Command } from './interfaces/command.interface';
+import { CommandType, PowerValue } from './command.enums';
+import { Status } from '../common/common.enums';
 
 @Injectable()
 export class CommandsService {

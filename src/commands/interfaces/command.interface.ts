@@ -1,5 +1,5 @@
 import { Status } from 'src/common/common.enums';
-import { CommandType } from './command.enum';
+import { CommandType } from '../command.enums';
 
 export interface Command {
   id: string;

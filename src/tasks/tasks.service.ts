@@ -1,9 +1,9 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { Cron, CronExpression } from '@nestjs/schedule';
 import { DatabaseService } from '../database/database.service';
-import { Device } from '../devices/device.interface';
-import { Command } from '../commands/command.interface';
-import { Status } from 'src/common/common.enums';
+import { Device } from '../devices/interfaces/device.interface';
+import { Command } from '../commands/interfaces/command.interface';
+import { Status } from '../common/common.enums';
 
 @Injectable()
 export class TasksService {

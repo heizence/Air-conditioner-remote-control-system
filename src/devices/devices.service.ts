@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { DatabaseService } from '../database/database.service';
-import { Command } from '../commands/command.interface';
-import { Status } from 'src/common/common.enums';
+import { Command } from '../commands/interfaces/command.interface';
+import { Status } from '../common/common.enums';
 
 @Injectable()
 export class DevicesService {
