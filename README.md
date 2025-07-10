@@ -35,25 +35,36 @@
 - [Docker Desktop](https://www.docker.com/products/docker-desktop/)이 설치되어 있어야 합니다.
 
 ### 설치
-```bash
-# 1. 이 저장소를 로컬 컴퓨터에 복제(clone)합니다.
-git clone <your-repository-url>
 
-# 2. 프로젝트 폴더로 이동합니다.
+#### 1. 이 저장소를 로컬 컴퓨터에 복제(clone)합니다.
+```bash
+git clone <your-repository-url>
+```
+
+#### 2. 프로젝트 폴더로 이동
+```bash
 cd <project-directory>
 ```
 
-## 5. Docker 실행
+#### 3. 환경변수 생성
+
+프로젝트 root 경로에서 .env 파일을 생성하고 .env.example 에 있는 내용들을 붙여넣기 하여 값을 수정합니다.
+
+
+#### 4. Docker 실행
+
 Docker 이미지를 빌드하고 컨테이너를 백그라운드에서 실행합니다.
 
 -d 옵션은 터미널을 차지하지 않고 백그라운드에서 실행하도록 합니다.
+
 ```bash
 docker-compose up --build -d
 ```
 
-## 6. 서버 확인
-API 문서 (Swagger UI): http://localhost:3000/api
+#### 5. 서버 확인
 
-위 주소로 접속하여 API를 테스트할 수 있습니다.
+http://localhost:{PORT} 로 접속하여 "Hello, world" 메시지가 잘 출력되는지 확인합니다.
 
-데이터는 프로젝트 루트에 생성되는 myData.json 파일에 저장됩니다.
+API 문서 (Swagger UI): http://localhost:{PORT}/api
+
+데이터는 프로젝트 루트에 생성되는 .json 파일에 저장됩니다. .json 파일 이름은 .env 에서 설정한 DB_FILENAME 입니다.
