@@ -6,8 +6,7 @@ export class DatabaseService implements OnModuleInit {
   db: JsonDB;
 
   constructor() {
-    // 'myData.json' 이라는 이름의 파일로 DB를 설정합니다.
-    this.db = new JsonDB(new Config('myData', true, true, '/'));
+    this.db = new JsonDB(new Config(process.env.DB_FILENAME!, true, true, '/'));
   }
 
   // 모듈이 초기화될 때 실행되는 메서드

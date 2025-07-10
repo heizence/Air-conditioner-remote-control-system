@@ -1,5 +1,3 @@
-// src/main.ts
-
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
@@ -10,10 +8,8 @@ async function bootstrap() {
 
   app.useGlobalPipes(
     new ValidationPipe({
-      // DTO에 없는 속성은 요청에서 제거합니다.
-      whitelist: true,
-      // DTO에 없는 속성이 들어오면 에러를 발생시킵니다.
-      forbidNonWhitelisted: true,
+      whitelist: true, // DTO에 없는 속성은 요청에서 제거
+      forbidNonWhitelisted: true, // DTO에 없는 속성이 들어오면 에러를 발생시킨다.
     }),
   );
 
@@ -26,6 +22,8 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
 
-  await app.listen(3000);
+  const port = Number(process.env.PORT!);
+  await app.listen(port);
 }
+
 bootstrap();
