@@ -36,7 +36,7 @@
 
 ### 설치
 
-#### 1. 이 저장소를 로컬 컴퓨터에 복제(clone)합니다.
+#### 1. 저장소를 로컬 컴퓨터에 복제(clone)
 ```bash
 git clone <your-repository-url>
 ```
