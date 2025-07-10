@@ -11,7 +11,6 @@ export class DatabaseService implements OnModuleInit {
 
   // 모듈이 초기화될 때 실행되는 메서드
   async onModuleInit() {
-    // DB에 devices와 commands 테이블(배열)이 없으면 생성합니다.
     if (!(await this.db.exists('/devices'))) {
       await this.db.push('/devices', []);
     }

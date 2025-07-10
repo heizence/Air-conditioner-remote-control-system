@@ -1,5 +1,3 @@
-// src/commands/commands.service.ts
-
 import { Injectable, BadRequestException } from '@nestjs/common';
 import { DatabaseService } from '../database/database.service';
 import { CreateCommandDto } from './dto/create-command.dto';
@@ -13,7 +11,6 @@ export class CommandsService {
   constructor(private readonly dbService: DatabaseService) {}
 
   async create(createCommandDto: CreateCommandDto) {
-    // DTO에서 deviceId, type, value 속성을 직접 추출합니다.
     const { deviceId, type, value } = createCommandDto;
 
     // 1. 명령 '값(value)'에 대한 세부 유효성 검사

@@ -1,7 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { Cron, CronExpression } from '@nestjs/schedule';
 import { DatabaseService } from '../database/database.service';
-import { Device } from '../devices/device.interface'; // Device 인터페이스 생성 필요
+import { Device } from '../devices/device.interface';
 import { Command } from '../commands/command.interface';
 import { Status } from 'src/common/common.enums';
 
@@ -20,7 +20,7 @@ export class TasksService {
     const offlineMinutes = Number(process.env.DEVICE_OFFLINE_MINUTES!);
     const expireMinutes = Number(process.env.COMMAND_EXPIRE_MINUTES!);
 
-    // --- 1. 디바이스 오프라인 처리 ---
+    // 1. 디바이스 오프라인 처리
     const devices: Device[] = await this.dbService.db.getData('/devices');
 
     for (const device of devices) {
@@ -43,7 +43,7 @@ export class TasksService {
       }
     }
 
-    // --- 2. 만료된 명령 처리 ---
+    // 2. 만료된 명령 처리
     const pendingCommands = await this.dbService.db.filter<Command>(
       '/commands',
       (cmd) => cmd.status === Status.PENDING,
