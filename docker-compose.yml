@@ -1,3 +1,5 @@
+# 여러 개의 docker 컨테이너로 구성된 애플리케이션을 정의하고 실행하기 위한 설정 파일
+
 version: '3.8' # docker-compose 파일 형식의 버전을 지정
 
 services:

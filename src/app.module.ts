@@ -1,3 +1,7 @@
+/**
+ * 프로젝트의 모든 모듈을 한곳에 모아 연결하는 root 모듈이다.
+ * 모든 모듈을 모아서 연결하여 main.ts 에 넘겨줘서 애플리케이션을 완성한다.
+ */
 import { Module } from '@nestjs/common';
 import { ScheduleModule } from '@nestjs/schedule';
 import { ConfigModule } from '@nestjs/config';

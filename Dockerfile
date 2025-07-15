@@ -1,3 +1,5 @@
+# Docker 이미지를 생성하기 위한 설정 파일
+
 # 1. 베이스 이미지 선택: 가볍고 안정적인 node 22-alpine 버전을 사용합니다.
 FROM node:22-alpine
 
